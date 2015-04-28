@@ -1,0 +1,22 @@
+{
+  "name": "dot",
+  "version": "0.0.1",
+
+  "description": "access object properties by path",
+  "author": {
+    "name": "Michael Miretski",
+    "email": "4apaev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:4apaev/dot.git"
+  },
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest"
+  }
+}
