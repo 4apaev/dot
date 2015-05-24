@@ -2,5 +2,5 @@
   "indent": 2,
   "asi":true,
   "sub":true,
-  "predef" : ["define", "Backbone",  "exports"]
+  "predef" : ["exports"]
 }

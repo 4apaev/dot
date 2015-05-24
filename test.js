@@ -1,5 +1,5 @@
 var should = require('should')
-var dot = require('./index')
+var dot = require('./dot')
 var obj = { a: { b: { c: { d: 10, e: { f: 20}}}}}
 var arr = [{ a: 0 }, { b: 1 }, { c: 2, kids: { one: 1, two: [obj, obj] }}]
 
