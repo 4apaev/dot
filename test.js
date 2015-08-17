@@ -5,7 +5,7 @@ var arr = [{ a: 0 }, { b: 1 }, { c: 2, kids: { one: 1, two: [obj, obj] }}]
 
 describe('dot.get', function () {
   it('should find value by path', function () {
-    dot.get(arr, '0.c.kids.two.0.a.b.c.e.f', 20).should.be.equal(20)
+    dot.get(arr, '[0].c.kids.two[1].a.b.c.e.f', 20).should.be.equal(20)
   })
 
   it('should return default value', function () {
@@ -13,7 +13,7 @@ describe('dot.get', function () {
   })
 
   it('should return undefined if default value not provided', function () {
-    (typeof dot.get(obj, 'a.0')).should.be.equal('undefined')
+    (typeof dot.get(obj, 'a[0]')).should.be.equal('undefined')
   })
 })
 
@@ -23,9 +23,21 @@ describe('dot.set', function () {
   })
 
   it('should set array value by path', function () {
-    dot.set([], '0.b', 10).should.containDeep([{
+    dot.set([], '[0].b', 10).should.containDeep([{
       b: 10
     }])
+  })
+
+  var o = [[{name:'olo'}]]
+  it('should set nested mixed object value by path', function() {
+    dot.set(o, '[0][0].name', 'deep')
+    o.should.containDeep([[{name:'deep'}]])
+
+  })
+
+  it('should set nested mixed object value by path', function() {
+    dot.set(o, '[0][0].item[1].value', false)
+    o.should.containDeep([[{name:'deep', item:[,{value:false}]}]])
   })
 
 })

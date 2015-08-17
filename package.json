@@ -1,6 +1,6 @@
 {
   "name": "dot",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "description": "access object properties by path",
   "author": {
@@ -16,6 +16,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "uglify-js": "latest",
     "mocha": "latest",
     "should": "latest"
   }
