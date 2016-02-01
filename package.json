@@ -1,7 +1,7 @@
 {
   "name": "dot",
   "version": "0.0.3",
-
+  "main": "dot.js",
   "description": "access object properties by path",
   "author": {
     "name": "Michael Miretski",
