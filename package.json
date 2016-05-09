@@ -1,6 +1,6 @@
 {
   "name": "dot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dot.js",
   "description": "access object properties by path",
   "author": {
@@ -14,9 +14,8 @@
   "scripts": {
     "test": "mocha test.js"
   },
-  "dependencies": {},
+
   "devDependencies": {
-    "mocha": "latest",
-    "should": "latest"
+    "mocha": "latest"
   }
 }
