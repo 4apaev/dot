@@ -1,22 +1,20 @@
 'use strict';
-let dot = require('./_dot')
-
+let dot = require('./dot');
 let { equal, deepEqual } = require('assert');
 
 describe('dot.get', () => {
-
   it('should find value by path', () => {
       let arr = [0, 1, { c: 2,kids: {one: 1,two: [1,2]}}]
       let expected = arr[2].kids.two[1];
       let actual = dot.get(arr, '[2].kids.two[1]')
-      equal(actual, expected)
+      equal(actual, expected);
     });
 
   it('should return default value', () => {
     let o = { a:1, b:2 }
     let expected = 'nada'
     let actual = dot.get(o, 'a.b.c.d', expected)
-    equal(actual, expected)
+    equal(actual, expected);
   });
 
   it('should return undefined if default value not provided', () =>
@@ -24,7 +22,6 @@ describe('dot.get', () => {
 })
 
 describe('dot.remove', () => {
-
   it('should delete object property and return true', () => {
     let o = { a: { b: 1 }, c: [1,2,3] }
     equal(dot.remove(o, 'a.b'), true)
@@ -42,7 +39,6 @@ describe('dot.remove', () => {
     equal(dot.remove(o, 'a.b'), false)
     deepEqual(o, { a:{} })
   })
-
 })
 
 describe('dot.set', () => {
@@ -64,7 +60,6 @@ describe('dot.set', () => {
   it('should set nested mixed object value by path', () => {
     dot.set(o, '[0][0].name', 'deep')
     deepEqual(o, [[{name:'deep'}]])
-
   })
 
   it('should set nested mixed object value by path', () => {
@@ -73,12 +68,12 @@ describe('dot.set', () => {
   })
 
 
-  it('should return false for same value', () => {
+  it('should return false if value not changed', () => {
     let o = { a: { b: { c: 10 }}}
     equal(dot.set(o, 'a.b.c', 10), false);
   })
 
-  it('should return true for fresh value', () => {
+  it('should return true if value has changed', () => {
     let o = { a: { b: { c: 10 }}}
     equal(dot.set(o, 'a.b.c', 20), true);
   })
