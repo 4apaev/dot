@@ -1,34 +1,24 @@
 'use strict';
-let is = x => x!=null;
-let split = x => 'string'==typeof x ? x.replace(/^\w/,'.$&').match(/\W?\w+/g) : x;
+const is = x => x!=null;
+const identity = x => x;
+const split = x => 'string'==typeof x ? ('.'+x).match(/\W?\w+/g) : x;
+const get = (src, path, fallback) => split(path).every(chunk => is(src=src[chunk.substr(1)])) ? src : fallback;
 
-function set(o, path, val) {
-    let arr = split(path);
-    if(val===get(o, arr))
-      return false;
+function deep(buf, chunk) {
+  let key = chunk.substr(1);
+  return key in buf ? buf[key] : identity(buf[key] = chunk.charAt(0)=='[' ? [] : {});
+}
 
-    let last = arr.pop().slice(1);
-    arr.reduce((m, chunk) => {
-      let x = chunk.slice(1);
-      return x in m ? m[x] : (m[x] = chunk[0]=='[' ? [] : {});
-    }, o)[last] = val;
-    return true;
-  }
+function set(src, path, val, chunks = split(path)) {
+  let last = chunks.pop().substr(1);
+  let trg = chunks.reduce(deep, src);
+  return identity(trg[last]!=val, trg[last]=val);
+}
 
-function remove(o, path) {
-    let arr = split(path);
-    let last = arr.pop().slice(1);
-    let prev = get(o, arr);
-    if(is(prev))
-      return prev.splice ? !!prev.splice(+last, 1) : (delete prev[last]);
-    return false;
-  }
+function remove(src, path, chunks = split(path)) {
+  let last = chunks.pop().substr(1);
+  let prev = get(src, chunks);
+  return is(prev) && last in prev && identity(Array.isArray(prev) ? !!prev.splice(+last, 1) : delete prev[last]);
+}
 
-function get(o, path, val) {
-    split(path).every(x => is(o=o[x.slice(1)]));
-    return is(o) ? o : val;
-  }
-
-exports.get = get;
-exports.set = set;
-exports.remove = remove;
+module.exports = { get, set, remove }
