@@ -12,7 +12,8 @@
     "url": "git@github.com:4apaev/dot.git"
   },
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha test.js",
+    "es5": "babel --presets es2015 dot.js -o dot.es5.js"
   },
 
   "devDependencies": {
